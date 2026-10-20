@@ -4,9 +4,9 @@ This is my To-Do List app. The frontend is built with React and the backend is b
 
 **Live links**
 
-- Frontend (Netlify): PASTE YOUR NETLIFY LINK HERE
-- Backend API (Render): PASTE YOUR RENDER LINK HERE
-- GitHub repo: PASTE YOUR GITHUB LINK HERE
+- 
+- Backend API (Render): [PASTE YOUR RENDER LINK HERE](https://tutedude-todo-11lg.onrender.com/)
+
 
 The backend runs on Render's free plan, so it goes to sleep when nobody uses it. The first load can take up to a minute. After that it works normally.
 
