@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO-LIST</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h2>My Awesome Todo List</h2>
+  </header>
+  <div class="container">
+    <div class="box">
+      <h1>TODO-LIST</h1>
+      <div class="filter-box">
+        <label for="priority-filter">Filter by Priority:</label>
+        <select id="priority-filter">
+          <option value="all">All</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <% for(let i=0; i<todos.length; i++){ %>
+        <div class="todo-item" data-id="<%= todos[i]._id %>" data-priority="<%= todos[i].priority %>">
+  <span class="todo-text" id="text-<%= i %>"><%= todos[i].text %></span>
+  <span class="priority-label"><%= todos[i].priority.charAt(0).toUpperCase() + todos[i].priority.slice(1) %></span>
+  <button class="edit-btn" type="button">Edit</button>
+  <button class="delete-btn" type="button">Delete</button>
+</div>
+      <% } %>
+      <form id="todo-form" action="/" method="post" autocomplete="off">
+        <input type="text" id="todo-input" name="element" placeholder="Enter the todo list">
+        <select name="priority" id="priority-input">
+          <option value="high">High</option>
+          <option value="medium" selected>Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <input type="submit" value="+">
+      </form>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> My Todo List App</p>
+  </footer>
+  <script src="/script.js"></script>
+</body>
+</html>
