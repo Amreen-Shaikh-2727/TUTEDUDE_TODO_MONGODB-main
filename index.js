@@ -1,60 +1,45 @@
-const dns = require('node:dns');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const app = express();
-require('dotenv').config();
 
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+const dns = require("node:dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
+require("dotenv").config();
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const taskRoutes = require("./routes/taskRoutes");
+const errorHandler = require("./middleware/errorHandler");
+
+const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI);
-
-// Define Todo schema and model
-const todoSchema = new mongoose.Schema({
-  text: String,
-  priority: { type: String, default: "medium" },
-});
-const Todo = mongoose.model("Todo", todoSchema);
-
-// Home page - show all todos
-app.get("/", async (req, res) => {
-  const todos = await Todo.find();
-  res.render("list", { todos });
+app.get("/", (req, res) => {
+  res.json({ message: "Todo API is running." });
 });
 
-// Add todo
-app.post("/", async (req, res) => {
-  const { element, priority } = req.body;
-  if (element && element.trim()) {
-    await Todo.create({ text: element.trim(), priority: priority || "medium" });
-  }
-  res.redirect("/");
+app.use("/api/tasks", taskRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found." });
 });
 
-// Edit todo
-app.put("/edit/:id", async (req, res) => {
-  const id = req.params.id;
-  if (req.body.text && req.body.text.trim()) {
-    await Todo.findByIdAndUpdate(id, { text: req.body.text.trim() });
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(400);
-  }
-});
+app.use(errorHandler);
 
-// Delete todo
-app.delete("/delete/:id", async (req, res) => {
-  const id = req.params.id;
-  await Todo.findByIdAndDelete(id);
-  res.sendStatus(200);
-});
+const PORT = process.env.PORT || 3000;
 
-const PORT =process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
-});
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("MongoDB connected successfully.");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err.message);
+    process.exit(1);
+  });

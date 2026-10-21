@@ -1,0 +1,165 @@
+
+.container {
+  max-width: 850px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.todo-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px #00000012;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.add-form,
+.toolbar,
+.edit-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.add-form input,
+.toolbar input,
+.edit-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+button {
+  cursor: pointer;
+  background: #222;
+  color: white;
+  border: none;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.task-text {
+  overflow-wrap: anywhere;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.priority,
+.status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #eee;
+}
+
+.priority.high {
+  background: #ffe0e0;
+  color: #a40000;
+}
+
+.priority.medium {
+  background: #fff0cc;
+  color: #805500;
+}
+
+.priority.low {
+  background: #ddf7e5;
+  color: #176b35;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.delete-button {
+  background: #b42318;
+}
+
+.message {
+  text-align: center;
+  padding: 25px;
+  color: #666;
+}
+
+.error-message {
+  background: #fff0f0;
+  color: #a40000;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 15px auto;
+    padding: 10px;
+  }
+
+  .todo-box {
+    padding: 18px;
+  }
+
+  .add-form,
+  .toolbar {
+    flex-wrap: wrap;
+  }
+
+  .add-form input,
+  .toolbar input {
+    flex-basis: 100%;
+  }
+
+  .task-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .actions {
+    margin-left: 28px;
+  }
+}
